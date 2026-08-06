@@ -20,14 +20,15 @@ struct ZakiyPrimaryButtonStyle: ButtonStyle {
 }
 
 /// Mustard-accent button, reserved for the single highest-priority action on
-/// a screen (mirrors the web's gold call-to-action moments).
+/// a screen (matches the real app's "إنشاء حساب"-style buttons: gold fill,
+/// white text).
 struct ZakiyAccentButtonStyle: ButtonStyle {
     var fullWidth: Bool = true
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.zakiyButton)
-            .foregroundStyle(Color.zakiyNavy)
+            .foregroundStyle(.white)
             .padding(.vertical, ZakiySpacing.md)
             .padding(.horizontal, ZakiySpacing.xl)
             .frame(maxWidth: fullWidth ? .infinity : nil)
@@ -38,7 +39,7 @@ struct ZakiyAccentButtonStyle: ButtonStyle {
     }
 }
 
-/// Outlined secondary button for lower-emphasis actions.
+/// Neutral pill for lower-emphasis actions (plain label text).
 struct ZakiySecondaryButtonStyle: ButtonStyle {
     var fullWidth: Bool = true
 
@@ -46,6 +47,26 @@ struct ZakiySecondaryButtonStyle: ButtonStyle {
         configuration.label
             .font(.zakiyButton)
             .foregroundStyle(Color.zakiyTextPrimary)
+            .padding(.vertical, ZakiySpacing.md)
+            .padding(.horizontal, ZakiySpacing.xl)
+            .frame(maxWidth: fullWidth ? .infinity : nil)
+            .background(Color.zakiyMutedSurface.opacity(configuration.isPressed ? 0.7 : 1))
+            .clipShape(RoundedRectangle(cornerRadius: ZakiyRadius.md, style: .continuous))
+            .scaleEffect(configuration.isPressed ? 0.97 : 1)
+            .animation(.easeOut(duration: 0.15), value: configuration.isPressed)
+    }
+}
+
+/// Neutral pill with gold text — matches the real app's "تسجيل الدخول"
+/// button on the welcome screen: a gray pill carrying the accent color in
+/// its label instead of its fill.
+struct ZakiyGhostGoldButtonStyle: ButtonStyle {
+    var fullWidth: Bool = true
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.zakiyButton)
+            .foregroundStyle(Color.zakiyMustard)
             .padding(.vertical, ZakiySpacing.md)
             .padding(.horizontal, ZakiySpacing.xl)
             .frame(maxWidth: fullWidth ? .infinity : nil)
@@ -66,4 +87,8 @@ extension ButtonStyle where Self == ZakiyAccentButtonStyle {
 
 extension ButtonStyle where Self == ZakiySecondaryButtonStyle {
     static var zakiySecondary: ZakiySecondaryButtonStyle { ZakiySecondaryButtonStyle() }
+}
+
+extension ButtonStyle where Self == ZakiyGhostGoldButtonStyle {
+    static var zakiyGhostGold: ZakiyGhostGoldButtonStyle { ZakiyGhostGoldButtonStyle() }
 }

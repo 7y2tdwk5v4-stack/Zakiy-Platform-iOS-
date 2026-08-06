@@ -11,48 +11,32 @@ struct HomeView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: ZakiySpacing.xl) {
-                header
+            VStack(spacing: ZakiySpacing.xxl) {
+                ZakiyLogo(textSize: 20, frameWidth: 76)
+                    .padding(.top, ZakiySpacing.sm)
 
-                VStack(alignment: .leading, spacing: ZakiySpacing.sm) {
-                    Text("حوّل أي ملف دراسي إلى ملخص واختبار جاهز")
-                        .font(.zakiyHeroTitle)
-                        .foregroundStyle(Color.zakiyTextPrimary)
-                    Text("ارفع ملزمة أو أوراق عمل بصيغة PDF، وخلّ ذكيّ يلخصها ويحول محتواها لاختبار تفاعلي يقيس فهمك.")
-                        .font(.zakiySubheadline)
-                        .foregroundStyle(Color.zakiyTextSecondary)
-                }
-
-                ZakiyCard {
-                    VStack(alignment: .leading, spacing: ZakiySpacing.lg) {
-                        if authSession.isSignedIn {
-                            Label("Welcome \(authSession.displayName)", systemImage: "hand.wave.fill")
-                                .font(.zakiySubheadline.weight(.semibold))
-                                .foregroundStyle(Color.zakiyTeal)
-                        }
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("وش تبي تسوي اليوم؟")
-                                .font(.zakiyTitle)
-                                .foregroundStyle(Color.zakiyTextPrimary)
-                            Text("اختر طريقة المذاكرة عشان نبدأ")
-                                .font(.zakiyCaption)
-                                .foregroundStyle(Color.zakiyTextSecondary)
-                        }
-
-                        HStack(spacing: ZakiySpacing.md) {
-                            NavigationLink(value: HomeRoute.solo) {
-                                StudyModeButtonLabel(title: "مذاكرة فردية", systemImage: "brain.head.profile")
-                            }
-                            NavigationLink(value: HomeRoute.group) {
-                                StudyModeButtonLabel(title: "غرفة جماعية", systemImage: "person.2.fill")
-                            }
-                            NavigationLink(value: HomeRoute.liveClass) {
-                                StudyModeButtonLabel(title: "درس مباشر", systemImage: "pencil.and.outline")
-                            }
-                        }
-                        .buttonStyle(.plain)
+                VStack(alignment: .leading, spacing: ZakiySpacing.lg) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("أهلًا، \(authSession.displayName)")
+                            .font(.system(size: 30, weight: .heavy, design: .rounded))
+                            .foregroundStyle(Color.zakiyTextPrimary)
+                        Text("جاهز تذاكر اليوم؟")
+                            .font(.zakiySubheadline)
+                            .foregroundStyle(Color.zakiyTextSecondary)
                     }
+
+                    VStack(spacing: ZakiySpacing.md) {
+                        NavigationLink(value: HomeRoute.solo) {
+                            HomeActionRow(title: "ارفع ملف PDF", subtitle: "ابدأ مذاكرة فردية من ملف جديد", systemImage: "doc.badge.plus")
+                        }
+                        NavigationLink(value: HomeRoute.group) {
+                            HomeActionRow(title: "غرفة جماعية", subtitle: "ادرس مع زملائك بغرفة مباشرة", systemImage: "person.3.fill")
+                        }
+                        NavigationLink(value: HomeRoute.liveClass) {
+                            HomeActionRow(title: "درس مباشر", subtitle: "سبورة وصوت جماعي حي مع طلابك", systemImage: "person.text.rectangle.fill")
+                        }
+                    }
+                    .buttonStyle(.plain)
                 }
             }
             .padding(ZakiySpacing.lg)
@@ -65,23 +49,7 @@ struct HomeView: View {
             case .liveClass: RoomEntryView(roomType: "classroom")
             }
         }
-        .navigationTitle("")
         .toolbar(.hidden, for: .navigationBar)
-    }
-
-    private var header: some View {
-        HStack {
-            ZakiyLogo()
-            Spacer()
-            NavigationLink {
-                if let userId = authSession.userId {
-                    ProfileView(userId: userId)
-                }
-            } label: {
-                InitialsAvatar(name: authSession.displayName, diameter: 36)
-            }
-            .disabled(!authSession.isSignedIn)
-        }
     }
 }
 

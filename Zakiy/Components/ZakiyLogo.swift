@@ -1,19 +1,30 @@
 import SwiftUI
 
-/// The "ذكيّ" wordmark: bold rounded type with a short mustard underline
-/// accent, the native counterpart of the web logo's bold text + gold dash.
+/// The "ذكيّ" wordmark exactly as it appears in the shipped app: a bold
+/// wordmark bracketed by two thin rule lines, with a mustard highlight bar
+/// sitting just beneath it.
 struct ZakiyLogo: View {
-    var size: Font = .zakiyLogo
-    var tint: Color = .zakiyTextPrimary
+    var textSize: CGFloat = 46
+    var frameWidth: CGFloat = 175
 
     var body: some View {
-        VStack(alignment: .center, spacing: 3) {
+        VStack(spacing: 14) {
+            Rectangle()
+                .fill(Color.zakiyTextSecondary.opacity(0.35))
+                .frame(width: frameWidth, height: 1)
+
             Text("ذكيّ")
-                .font(size)
-                .foregroundStyle(tint)
-            Capsule()
-                .fill(Color.zakiyMustard)
-                .frame(width: 28, height: 4)
+                .font(.system(size: textSize, weight: .heavy, design: .rounded))
+                .foregroundStyle(Color.zakiyTextPrimary)
+
+            VStack(spacing: 6) {
+                Rectangle()
+                    .fill(Color.zakiyTextSecondary.opacity(0.35))
+                    .frame(width: frameWidth, height: 1)
+                Rectangle()
+                    .fill(Color.zakiyMustard)
+                    .frame(width: frameWidth * 0.56, height: textSize * 0.18)
+            }
         }
     }
 }
@@ -21,4 +32,5 @@ struct ZakiyLogo: View {
 #Preview {
     ZakiyLogo()
         .padding()
+        .background(Color.zakiyBackground)
 }

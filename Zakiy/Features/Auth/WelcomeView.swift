@@ -1,8 +1,8 @@
 import SwiftUI
 
-/// Landing screen shown before sign-in — navy background with the wordmark,
-/// matching the brand identity from the reference screenshots while using
-/// native full-bleed layout instead of the web's boxed hero section.
+/// Landing screen shown before sign-in — matches the shipped app exactly:
+/// adaptive background (not a fixed navy hero), framed wordmark, and a
+/// gold-filled primary button over a ghost-gold secondary button.
 struct WelcomeView: View {
     @Binding var continuedAsGuest: Bool
     @State private var showSignIn = false
@@ -11,18 +11,22 @@ struct WelcomeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.zakiyNavy.ignoresSafeArea()
+                Color.zakiyBackground.ignoresSafeArea()
 
                 VStack(spacing: ZakiySpacing.xxl) {
                     Spacer()
 
-                    VStack(spacing: ZakiySpacing.md) {
-                        ZakiyLogo(size: .system(size: 48, weight: .heavy, design: .rounded), tint: .white)
-                        Text("حوّل أي ملف دراسي إلى ملخص واختبار جاهز")
-                            .font(.zakiyHeadline)
-                            .foregroundStyle(.white.opacity(0.9))
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, ZakiySpacing.xl)
+                    VStack(spacing: ZakiySpacing.lg) {
+                        ZakiyLogo()
+                        VStack(spacing: 4) {
+                            Text("أهلًا بك في ذكيّ")
+                                .font(.system(size: 30, weight: .heavy, design: .rounded))
+                                .foregroundStyle(Color.zakiyTextPrimary)
+                            Text("منصة مذاكرة جماعية بمساعدة الذكاء الاصطناعي")
+                                .font(.zakiySubheadline)
+                                .foregroundStyle(Color.zakiyTextSecondary)
+                        }
+                        .multilineTextAlignment(.center)
                     }
 
                     Spacer()
@@ -32,22 +36,14 @@ struct WelcomeView: View {
                             .buttonStyle(.zakiyAccent)
 
                         Button("تسجيل الدخول") { showSignIn = true }
-                            .buttonStyle(.plain)
-                            .font(.zakiyButton)
-                            .foregroundStyle(.white)
-                            .padding(.vertical, ZakiySpacing.md)
-                            .frame(maxWidth: .infinity)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: ZakiyRadius.md, style: .continuous)
-                                    .strokeBorder(.white.opacity(0.6), lineWidth: 1.5)
-                            )
+                            .buttonStyle(.zakiyGhostGold)
 
                         Button {
                             continuedAsGuest = true
                         } label: {
-                            Text("المتابعة كضيف")
+                            Text("استمر بدون حساب")
                                 .font(.zakiySubheadline)
-                                .foregroundStyle(.white.opacity(0.75))
+                                .foregroundStyle(Color.zakiyTextSecondary)
                         }
                         .padding(.top, ZakiySpacing.sm)
                     }

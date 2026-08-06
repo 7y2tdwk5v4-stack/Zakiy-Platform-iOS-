@@ -24,6 +24,19 @@ struct SettingsView: View {
                 }
             }
 
+            Section {
+                NavigationLink {
+                    FriendsView()
+                } label: {
+                    Label("الأصدقاء", systemImage: "person.2.fill")
+                }
+                NavigationLink {
+                    SiteHelpView()
+                } label: {
+                    Label("مساعد ذكيّ", systemImage: "sparkles")
+                }
+            }
+
             Section("المظهر") {
                 Picker("المظهر", selection: $colorScheme) {
                     Text("حسب النظام").tag("system")

@@ -49,7 +49,7 @@ struct SplashView: View {
     var body: some View {
         ZStack {
             Color.zakiyBackground.ignoresSafeArea()
-            ZakiyLogo(size: .zakiyHeroTitle)
+            ZakiyLogo()
         }
     }
 }
