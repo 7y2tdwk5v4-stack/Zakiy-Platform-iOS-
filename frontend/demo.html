@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Late.Chat (demo)</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌙</text></svg>" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="app-screen" class="screen">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark">🌙</span>
+      <span class="brand-name">Late<span class="brand-dot">.</span>Chat</span>
+    </div>
+    <p class="demo-badge">Local demo · no account</p>
+
+    <button id="new-chat-btn" class="new-chat-btn">
+      <span>＋</span> New chat
+    </button>
+
+    <div class="chat-list" id="chat-list"></div>
+
+    <div class="sidebar-footer">
+      <button id="memories-btn" class="ghost-btn">🧠 Memories</button>
+      <button id="clear-btn" class="ghost-btn">🗑 Clear all data</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="messages" id="messages">
+      <div class="empty-state" id="empty-state">
+        <div class="empty-mark">🌙</div>
+        <h1>Ask me anything.</h1>
+        <p>Late.Chat remembers what matters, across every chat.</p>
+      </div>
+    </div>
+
+    <form id="composer" class="composer">
+      <textarea id="composer-input" placeholder="Message Late.Chat…" rows="1"></textarea>
+      <button type="submit" id="composer-send" class="send-btn" aria-label="Send">➤</button>
+    </form>
+  </main>
+</div>
+
+<div id="memories-modal" class="modal hidden">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h2>🧠 What Late.Chat remembers</h2>
+      <button id="memories-close" class="icon-btn">✕</button>
+    </div>
+    <div id="memories-list" class="memories-list"></div>
+  </div>
+</div>
+
+<script src="demo.js"></script>
+</body>
+</html>
